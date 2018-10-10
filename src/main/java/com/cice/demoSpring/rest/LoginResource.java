@@ -1,5 +1,6 @@
 package com.cice.demoSpring.rest;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,8 @@ public class LoginResource {
 
         String respuesta = null;
         //respuesta = user + " " + pass;
+        pass = DigestUtils.sha256Hex(pass);
+
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -25,7 +28,8 @@ public class LoginResource {
                         "jdbc:mysql://localhost:3306/login",
                         "root", "root");
                 Statement statement = connection.createStatement();
-                ResultSet busqueda = statement.executeQuery("SELECT * FROM usuarios WHERE user = '"+user+"' AND pass = '"+pass+"'");
+                ResultSet busqueda = statement.executeQuery(
+                        "SELECT * FROM usuarios WHERE user = '"+user+"' AND pass = '"+pass+"'");
 
                 if(busqueda.first()){
                     respuesta = "Usuario encontrado";
