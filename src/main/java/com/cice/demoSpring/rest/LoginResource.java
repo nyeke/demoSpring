@@ -32,9 +32,9 @@ public class LoginResource {
                         "SELECT * FROM usuarios WHERE user = '"+user+"' AND pass = '"+pass+"'");
 
                 if(busqueda.first()){
-                    respuesta = "Usuario encontrado";
+                    respuesta = "Usuarios encontrado";
                 } else {
-                    respuesta = "Usuario y/o contraseña no coincide";
+                    respuesta = "Usuarios y/o contraseña no coincide";
                 }
                 busqueda.close();
                 statement.close();
